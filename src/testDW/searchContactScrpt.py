@@ -1,6 +1,3 @@
-from src.testDW import *
-import re
-
 def searchContScrpt(file, flag, searchPoint):
     with open(file) as f:
         for i in f:

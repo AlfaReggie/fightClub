@@ -1,5 +1,6 @@
-import os
-from src.testDW import *
+import os, csv
+
+from src.testDW.checkingValues import checkInputStr, checkInputInt
 
 def ensureDir(dirname):
     return os.makedirs(dirname, exist_ok=True)

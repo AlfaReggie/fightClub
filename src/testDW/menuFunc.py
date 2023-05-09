@@ -1,16 +1,17 @@
-import os
+import os, csv
 from src.testDW import *
 from src.testDW.workWithCont import updateCont
-
+from src.testDW.searchContactScrpt import searchContScrpt
 
 def choiseCommand(flag):
     comandMain = ["Open libraris", "Stop program"]
     comandLibrZero = ['Create new file', "Exit to main"]
     comandLibr = ['Create new file', "Choise file", "Exit to main"]
-    comandFile = ["Update file", 'Delete file', "Exit to library"]
+    comandFile = ["Update file", 'Delete file', "123", 'Search contact', "Exit to library"]
     comandContZero = ["Add contact", 'Exit to files']
     comandContact = ["Add contact", "Update contacts", 'Delete contacts', 'Exit to files']
-    lstCmd = [comandMain, comandLibr, comandLibrZero, comandFile, comandContZero, comandContact]
+    comandFind = ['Search on first name', 'Search on family name', 'Search on phone', 'Exit to contact menu']
+    lstCmd = [comandMain, comandLibr, comandLibrZero, comandFile, comandContZero, comandContact, comandFind]
     print('\nCommands: ')
     for i, val in enumerate(lstCmd[flag]):
         print(f"{i + 1}: {val}")
@@ -49,7 +50,6 @@ def menuLib(exit, dirname):
                 if fileNum <= len(os.listdir(dirname)): break
                 else: print('Not find file!')
             fileName = f"LibDir/{openDir()[fileNum - 1]}"
-            openFile(fileName)
             menuFail(False, fileName)
         else:
             menuMain()
@@ -57,12 +57,30 @@ def menuLib(exit, dirname):
 def menuFail(exit, fileName):
     if exit == True:
         menuFail(False, fileName)
+    openFile(fileName)
     answ = checkComm(choiseCommand(3))
     if answ == 1:
         menuContact(False, fileName)
     elif answ == 2:
         deleteFile(fileName)
         menuLib(False, 'LibDir')
+    elif answ == 3:
+        pass
+    elif answ == 4:
+        answ = checkComm(choiseCommand(6))
+        if answ == 1:
+            searchPnt = input('Enter first name: ')
+            searchContScrpt(fileName, 'frstName', searchPnt)
+        elif answ == 2:
+            searchPnt = input('Enter family name: ')
+            searchContScrpt(fileName, 'famName', searchPnt)
+        elif answ == 3:
+            searchPnt = input('Enter phone: ')
+            searchContScrpt(fileName, 'phone', searchPnt)
+        else:
+            menuFail(True, fileName)
+        menuFail(True, fileName)
+
     else:
         menuLib(False, 'LibDir')
 

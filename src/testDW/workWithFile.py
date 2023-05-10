@@ -1,12 +1,15 @@
-import os, csv
+import os
 
-from src.testDW.checkingValues import checkInputStr, checkInputInt
+from .checkingValues import checkInputStr, checkInputInt
 
 def ensureDir(dirname):
     return os.makedirs(dirname, exist_ok=True)
 
 def createFile(nameFile, dirName):
     return open(os.path.join(os.path.dirname(__name__), dirName, f'{nameFile}.txt'), 'w')
+
+def createFileCsv(nameFile):
+    return open(os.path.join(os.path.dirname(__name__), f'{nameFile[:-4]}.csv'), 'w')
 
 def deleteFile(fileName):
     return os.remove(fileName)

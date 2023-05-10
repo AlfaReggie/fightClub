@@ -1,7 +1,10 @@
 import os, csv
-from src.testDW import *
-from src.testDW.workWithCont import updateCont
-from src.testDW.searchContactScrpt import searchContScrpt
+from .workWithCont import updateCont
+from .workWithFile import ensureDir, createFile, deleteFile, createFileCsv
+from .opensObj import openDir, openFile
+from .workWithFile import writeInF
+from .checkingValues import checkComm, checkInputInt
+from .searchContactScrpt import searchContScrpt
 
 def choiseCommand(flag):
     comandMain = ["Open libraris", "Stop program"]
@@ -65,7 +68,7 @@ def menuFail(exit, fileName):
         deleteFile(fileName)
         menuLib(False, 'LibDir')
     elif answ == 3:
-        pass
+        createFileCsv(fileName)
     elif answ == 4:
         answ = checkComm(choiseCommand(6))
         if answ == 1:
@@ -80,7 +83,6 @@ def menuFail(exit, fileName):
         else:
             menuFail(True, fileName)
         menuFail(True, fileName)
-
     else:
         menuLib(False, 'LibDir')
 

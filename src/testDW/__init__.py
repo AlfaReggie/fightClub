@@ -1,5 +1,6 @@
-from src.testDW.checkingValues import checkInputStr, checkInputInt, checkComm
-from src.testDW.workWithFile import ensureDir, createFile, deleteFile, writeInF
-from src.testDW.opensObj import openFile, openDir
-from src.testDW.menuFunc import menuMain, menuLib, menuFail, menuContact
-from src.testDW.workWithCont import updateCont
+from .checkingValues import checkInputStr, checkInputInt, checkComm
+from .workWithFile import ensureDir, createFile, deleteFile, writeInF, createFileCsv
+from .opensObj import openFile, openDir
+from .menuFunc import menuMain, menuLib, menuFail, menuContact
+from .workWithCont import updateCont
+from .searchContactScrpt import searchContScrpt

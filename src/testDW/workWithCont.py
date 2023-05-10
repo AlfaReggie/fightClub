@@ -1,5 +1,5 @@
-from src.testDW import *
 import re
+from .checkingValues import checkInputStr, checkInputInt
 
 def updateCont(file, numCont, flag):
     with open(file) as f:

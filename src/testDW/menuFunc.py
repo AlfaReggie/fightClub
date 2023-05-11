@@ -10,7 +10,7 @@ def choiseCommand(flag):
     comandMain = ["Open libraris", "Stop program"]
     comandLibrZero = ['Create new file', "Exit to main"]
     comandLibr = ['Create new file', "Choise file", "Exit to main"]
-    comandFile = ["Update file", 'Delete file', "123", 'Search contact', "Exit to library"]
+    comandFile = ["Update file", 'Delete file', "Save in CSV", 'Search contact', "Exit to library"]
     comandContZero = ["Add contact", 'Exit to files']
     comandContact = ["Add contact", "Update contacts", 'Delete contacts', 'Exit to files']
     comandFind = ['Search on first name', 'Search on family name', 'Search on phone', 'Exit to contact menu']

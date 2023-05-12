@@ -1,23 +1,30 @@
-def checkInputStr(message: str) -> int:
-    checkNum = input(message)
-    if checkNum.replace("-", '').isalpha():
-        return checkNum
-    print("Error!")
-    return checkInputStr(f'{message}')
+class Checking:
 
-def checkInputInt(message: str) -> int:
-    checkNum = input(message)
-    if checkNum.replace("-", '').isdigit():
-        if int(checkNum) < 0:
-            print("Error! Can't negative!")
-            return checkInputInt(f'{message}')
-        return int(checkNum)
-    print("Error!")
-    return checkInputInt(f'{message}')
+    def __init__(self, val):
+        self.val = val
 
-def checkComm(flag):
-    userAnsw = checkInputInt('\nSelect command:')
-    if userAnsw > flag:
-        print('Not find command!')
-        return checkComm(flag)
-    return int(userAnsw)
+    def checkInputStr(self):
+        checkNum = input(self)
+        if checkNum.replace("-", '').isalpha():
+            return checkNum
+        print("Error!")
+        return Checking.checkInputStr(f'{self}')
+
+
+    def checkInputInt(self):
+        checkNum = input(self)
+        if checkNum.replace("-", '').isdigit():
+            if int(checkNum) < 0:
+                print("Error! Can't negative!")
+                return Checking.checkInputInt(f'{self}')
+            return int(checkNum)
+        print("Error!")
+        return Checking.checkInputInt(f'{self}')
+
+
+    def checkComm(self):
+        userAnsw = Checking.checkInputInt('\nSelect command:')
+        if userAnsw > self:
+            print('Not find command!')
+            return Checking.checkComm(self)
+        return int(userAnsw)

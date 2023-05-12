@@ -1,6 +1,6 @@
-from .checkingValues import checkInputStr, checkInputInt, checkComm
-from .workWithFile import ensureDir, createFile, deleteFile, writeInF, createFileCsv
-from .opensObj import openFile, openDir
+from .checkingValues import Checking
+from .workWithFile import File
+from .workWithDir import Directory
 from .menuFunc import menuMain, menuLib, menuFail, menuContact
-from .workWithCont import updateCont
-from .searchContactScrpt import searchContScrpt
+from .workWithCont import Contact
+from .searchContactScrpt import Search

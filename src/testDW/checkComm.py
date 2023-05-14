@@ -1,16 +1,15 @@
-from checkingValues import Checking
-
-chk = Checking()
-
 class Commands:
 
-    def __init__(self, countComm: int = 0, message: str = "Enter number command: "):
-        self.countComm = countComm
-        self.message = message
+    def __init__(self, commands: list):
+        self.commands = commands
 
-    def checkComm(self):
-        userAnsw = chk.checkInputInt(self.message)
-        if userAnsw > self.countComm:
+    def printComman(self, numbMenu: int):
+        print("\nCommands:")
+        for i, co in enumerate(self.commands[numbMenu]):
+            print(f"{i + 1}: {co}")
+
+    def checkComm(self, choiseMenu: int):
+        if choiseMenu > len(self.commands):
             print('Not find command!')
-            return Commands.checkComm(self.message)
-        return int(userAnsw)
+            return Commands.checkComm(self, choiseMenu)
+        return int(choiseMenu)

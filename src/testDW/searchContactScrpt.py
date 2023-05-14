@@ -1,23 +1,23 @@
+import os
+
 class Search:
 
-    def __init__(self, nameFile: str = "test", flag: str = "test", searchPoint: str = "test"):
-        self.fName = nameFile
-        self.flag = flag
-        self.searchPoint = searchPoint
+    def __init__(self, dir: str):
+        self.dir = dir
 
-    def searchContScrpt(self):
-        with open(self.fName) as f:
+    def searchContScrpt(self, fName, flag, searchPoint):
+        with open(os.path.join(os.path.dirname(__name__), self.dir, fName)) as f:
             for i in f:
                 a = list(i.split())
-                if self.flag == 'frstName':
-                    if a[0] == self.searchPoint:
+                if flag == 'frstName':
+                    if a[0] == searchPoint:
                         return i
                     return "Not found contact!"
-                elif self.flag == 'famName':
-                    if a[0] == self.searchPoint:
+                elif flag == 'famName':
+                    if a[0] == searchPoint:
                         return i
                     return "Not found contact!"
-                elif self.flag == 'phone':
-                    if a[2] == int(self.searchPoint):
+                elif flag == 'phone':
+                    if a[2] == int(searchPoint):
                         return i
                     return "Not found contact!"

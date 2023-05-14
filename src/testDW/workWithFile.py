@@ -1,43 +1,45 @@
 import os, csv
-from .checkingValues import Checking
 
 class File:
-    def __init__(self, name: str = "test", dir: str = "test"):
-        self.name = name
-        self.dir = dir
 
-    def createFile(self):
-        return open(os.path.join(os.path.dirname(__name__), self.dir, f'{self.name}.txt'), 'w')
+    def __init__(self, direc: str):
+        self.dir = direc
 
-    def createFileCsv(self):
+    def createFile(self, name):
+        return open(os.path.join(os.path.dirname(__name__), self.dir, f'{name}.txt'), 'w')
+
+    def createFileCsv(self, name):
         a = [['name', 'family name', 'phone']]
-        with open(self.name, 'r', encoding='UTF-8') as m_file:
+        with open(os.path.join(os.path.dirname(__name__), self.dir, name), 'r', encoding='UTF-8') as m_file:
             for i in m_file:
                 a.append(i.split())
-        with open(os.path.join(os.path.dirname(__name__), f'{self[:-4]}.csv'), 'w') as csv_file:
+        with open(os.path.join(os.path.dirname(__name__), self.dir, f'{name[:-4]}.csv'), 'w') as csv_file:
             spamwriter = csv.writer(csv_file, delimiter=' ',
                                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
             spamwriter.writerow(a)
         return csv_file
 
-    def deleteFile(self):
-        return os.remove(self.name)
+    def deleteFile(self, name):
+        return os.remove(os.path.join(os.path.dirname(__name__), self.dir, name))
 
-    def writeInF(self):
-        with open(self.name, 'a+', encoding='UTF-8') as m_file:
-            contName = Checking.checkInputStr('Enter name: ')
-            contFamName = Checking.checkInputStr('Enter family name: ')
-            contNumber = Checking.checkInputInt('Enter phone number: ')
+    def writeInF(self, nameFile, contName, contFamName, contNumber):
+        with open(os.path.join(os.path.dirname(__name__), self.dir, nameFile), 'a+', encoding='UTF-8') as m_file:
             m_file.write(f"{contName} {contFamName} {contNumber}\n")
         return m_file
 
-    def openFile(self):
-        if sum(1 for line in open(self.name)) > 0:
-            with open(self.name, 'r', encoding='UTF-8') as m_file:
+    def openFile(self, nameFile: str, flag):
+        sumLine = 0
+        if sum(1 for line in open(os.path.join(os.path.dirname(__name__), self.dir, nameFile))) > 0:
+            with open(os.path.join(os.path.dirname(__name__), self.dir, nameFile), 'r', encoding='UTF-8') as m_file:
                 for i, val in enumerate(m_file):
-                    print((f"{i + 1}: {val}").strip())
+                    sumLine += 1
+                    if flag == 1:
+                        print((f"{i + 1}: {val}").strip())
         else:
-            print('Fail...')
+            if flag == 1:
+                print('Empty fail...')
+        return sumLine
 
-    def choiseFile(self):
-        return os.listdir(self.name)
+
+    def choiseFile(self, numbFile: int):
+        return os.listdir(self.dir)[numbFile - 1]

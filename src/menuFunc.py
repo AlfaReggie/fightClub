@@ -1,10 +1,6 @@
 import os
-from .workWithCont import Contact
-from .workWithFile import File
-from .workWithDir import Directory
-from .checkingValues import Checking
-from .searchContactScrpt import Search
-from src.const import DIR_PATH
+from const import DIR_PATH
+from loader import check, cont, search, file, direct
 
 def choiseCommand(flag):
     comandMain = ["Open libraris", "Stop program"]
@@ -21,10 +17,10 @@ def choiseCommand(flag):
     return len(lstCmd[flag])
 
 def menuMain():
-    Directory.ensureDir(DIR_PATH)
-    answ = Checking.checkComm(choiseCommand(0))
+    direct.ensureDir(DIR_PATH)
+    answ = check.checkComm(choiseCommand(0))
     if answ == 1:
-        menuLib(False, "LibDir")
+        menuLib(False, DIR_PATH)
     print('Bye!')
 
 def menuLib(exit, dirname):
@@ -33,25 +29,25 @@ def menuLib(exit, dirname):
     print('Files: ')
     if len(os.listdir(dirname)) < 1:
         print('Not files')
-        answ = Checking.checkComm(choiseCommand(2))
+        answ = check.checkComm(choiseCommand(2))
         if answ == 1:
-            File.createFile(DIR_PATH, input('Enter file name: '))
+            file.createFile(DIR_PATH, input('Enter file name: '))
             menuLib(False, 'LibDir')
         else:
             menuMain()
     else:
         for i, val in enumerate(os.listdir(dirname)):
             print(f"{i + 1} - {val}")
-        answ = Checking.checkComm(choiseCommand(1))
+        answ = check.checkComm(choiseCommand(1))
         if answ == 1:
-            File.createFile(DIR_PATH, input('Enter file name: '))
+            file.createFile(DIR_PATH, input('Enter file name: '))
             menuLib(False, DIR_PATH)
         elif answ == 2:
             while True:
-                fileNum = Checking.checkInputInt('Enter number file: ')
+                fileNum = check.checkInputInt('Enter number file: ')
                 if fileNum <= len(os.listdir(dirname)): break
                 else: print('Not find file!')
-            fileName = f"LibDir/{File.choiseFile(DIR_PATH)[fileNum - 1]}"
+            fileName = f"LibDir/{file.choiseFile(DIR_PATH)[fileNum - 1]}"
             menuFail(False, fileName)
         else:
             menuMain()
@@ -60,27 +56,27 @@ def menuFail(exit, fileName):
     if exit == True:
         menuFail(False, fileName)
     print("File:")
-    File.openFile(fileName)
-    answ = Checking.checkComm(choiseCommand(3))
+    file.openFile(fileName)
+    answ = check.checkComm(choiseCommand(3))
     if answ == 1:
         menuContact(False, fileName)
     elif answ == 2:
-        File.deleteFile(fileName)
+        file.deleteFile(fileName)
         menuLib(False, DIR_PATH)
     elif answ == 3:
-        File.createFileCsv(fileName)
+        file.createFileCsv(fileName)
         menuLib(False, DIR_PATH)
     elif answ == 4:
-        answ = Checking.checkComm(choiseCommand(6))
+        answ = check.checkComm(choiseCommand(6))
         if answ == 1:
             searchPnt = input('Enter first name: ')
-            print(Search.searchContScrpt(fileName, 'frstName', searchPnt))
+            print(search.searchContScrpt(fileName, 'frstName', searchPnt))
         elif answ == 2:
             searchPnt = input('Enter family name: ')
-            print(Search.searchContScrpt(fileName, 'famName', searchPnt))
+            print(search.searchContScrpt(fileName, 'famName', searchPnt))
         elif answ == 3:
             searchPnt = input('Enter phone: ')
-            print(Search.searchContScrpt(fileName, 'phone', searchPnt))
+            print(search.searchContScrpt(fileName, 'phone', searchPnt))
         else:
             menuFail(True, fileName)
         menuFail(True, fileName)
@@ -91,36 +87,36 @@ def menuContact(exit, fileName):
     if exit == True:
         menuFail(False, fileName)
     if sum(1 for line in open(fileName)) != 0:
-        answ = Checking.checkComm(choiseCommand(5))
+        answ = check.checkComm(choiseCommand(5))
         if answ == 1:
-            File.writeInF(fileName)
-            File.openFile(fileName)
+            file.writeInF(fileName)
+            file.openFile(fileName)
             menuContact(False, fileName)
         elif answ == 2:
-            File.openFile(fileName)
+            file.openFile(fileName)
             while True:
-                numStr = Checking.checkInputInt("Select contact: ")
+                numStr = check.checkInputInt("Select contact: ")
                 if numStr <= sum(1 for line in open(fileName)): break
                 else: print('Not find contact!')
-            Contact.updateCont(fileName, numStr - 1, 'upd')
+            cont.updateCont(fileName, numStr - 1, 'upd')
             menuContact(False, fileName)
         elif answ == 3:
-            File.openFile(fileName)
+            file.openFile(fileName)
             while True:
-                numStr = Checking.checkInputInt("Select contact: ")
+                numStr = check.checkInputInt("Select contact: ")
                 if numStr <= sum(1 for line in open(fileName)): break
                 else: print('Not find contact!')
-            Contact.updateCont(fileName, numStr - 1, 'del')
-            File.openFile(fileName)
+            cont.updateCont(fileName, numStr - 1, 'del')
+            file.openFile(fileName)
             menuContact(False, fileName)
         else:
             menuFail(False, fileName)
     else:
         choiseCommand(5)
-        userAnswCont = Checking.checkInputInt('\nSelect command:')
+        userAnswCont = check.checkInputInt('\nSelect command:')
         if userAnswCont == 1:
-            File.writeInF(fileName)
-            File.openFile(fileName)
+            file.writeInF(fileName)
+            file.openFile(fileName)
             menuContact(False, fileName)
         else:
             menuFail(False, fileName)

@@ -1,5 +1,5 @@
-import testDW
+from menuFunc import menuMain
 
 def start_menu():
     print(f'Start program...')
-    testDW.menuMain()
+    menuMain()

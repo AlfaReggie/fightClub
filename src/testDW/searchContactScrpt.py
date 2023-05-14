@@ -1,20 +1,23 @@
 class Search:
-    def __init__(self, nameFile):
-        self.fName = nameFile
 
-    def searchContScrpt(self, flag, searchPoint):
-        with open(self) as f:
+    def __init__(self, nameFile: str = "test", flag: str = "test", searchPoint: str = "test"):
+        self.fName = nameFile
+        self.flag = flag
+        self.searchPoint = searchPoint
+
+    def searchContScrpt(self):
+        with open(self.fName) as f:
             for i in f:
                 a = list(i.split())
-                if flag == 'frstName':
-                    if a[0] == searchPoint:
+                if self.flag == 'frstName':
+                    if a[0] == self.searchPoint:
                         return i
                     return "Not found contact!"
-                elif flag == 'famName':
-                    if a[0] == searchPoint:
+                elif self.flag == 'famName':
+                    if a[0] == self.searchPoint:
                         return i
                     return "Not found contact!"
-                elif flag == 'phone':
-                    if a[2] == searchPoint:
+                elif self.flag == 'phone':
+                    if a[2] == int(self.searchPoint):
                         return i
                     return "Not found contact!"
